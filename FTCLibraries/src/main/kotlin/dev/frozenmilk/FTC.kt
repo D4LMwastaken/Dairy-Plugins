@@ -4,10 +4,13 @@ import dev.frozenmilk.easyautolibraries.EasyAutoScopeRoot
 import dev.frozenmilk.easyautolibraries.brightBlue
 import dev.frozenmilk.libs.ACMERobotics
 import dev.frozenmilk.libs.Dairy
+import dev.frozenmilk.libs.FateWeaver
 import dev.frozenmilk.libs.FtControl
 import dev.frozenmilk.libs.Next
 import dev.frozenmilk.libs.Pedro
+import dev.frozenmilk.libs.PsiLynx
 import dev.frozenmilk.libs.SDK
+import dev.frozenmilk.libs.Solvers
 import org.gradle.api.Project
 import org.gradle.api.logging.LogLevel
 import org.gradle.jvm.toolchain.JavaLanguageVersion
@@ -52,4 +55,10 @@ class FTC(project: Project) : EasyAutoScopeRoot<FTC>(project, LogLevel.LIFECYCLE
     val next = Next(this)
 
     val pedro = Pedro(this)
+
+    val solvers = Solvers(this)
+
+    val psiLynx = PsiLynx(this)
+
+    val fateWeaver = FateWeaver(this)
 }
