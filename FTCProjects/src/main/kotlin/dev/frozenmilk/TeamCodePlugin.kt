@@ -39,7 +39,7 @@ class TeamCodePlugin @Inject constructor(
         }
 
         androidComponentsExtension.finalizeDsl { it ->
-            it.apply {
+            val _ = it.apply {
                 namespace = namespace ?: "org.firstinspires.ftc.teamcode"
 
                 compileSdk = 30

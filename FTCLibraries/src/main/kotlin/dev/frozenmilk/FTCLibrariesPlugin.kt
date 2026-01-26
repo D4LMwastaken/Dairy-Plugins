@@ -6,7 +6,7 @@ import org.gradle.api.Project
 @Suppress("unused")
 class FTCLibrariesPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.repositories.run {
+        val _ = project.repositories.run {
             mavenCentral()
             google()
             maven {

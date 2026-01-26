@@ -14,30 +14,63 @@ import dev.frozenmilk.libs.Solvers
 import org.gradle.api.Project
 import org.gradle.api.logging.LogLevel
 import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.jetbrains.kotlin.gradle.dsl.HasConfigurableKotlinCompilerOptions
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 @Suppress("unused")
 class FTC(project: Project) : EasyAutoScopeRoot<FTC>(project, LogLevel.LIFECYCLE) {
-    fun kotlin() {
+    @Suppress("UNCHECKED_CAST")
+    class KotlinConfig(
+        private val extension: KotlinBaseExtension,
+    ) : KotlinBaseExtension by extension,
+        HasConfigurableKotlinCompilerOptions<KotlinJvmCompilerOptions> by extension as HasConfigurableKotlinCompilerOptions<KotlinJvmCompilerOptions> {
+        override fun toString() = extension.toString()
+    }
+
+    fun kotlin(f: KotlinConfig.() -> Unit = {}) {
         val isAndroid = project.plugins.hasPlugin("com.android.base")
         if (isAndroid) {
             project.logger.log(logLevel, brightBlue("kotlin-android"))
             project.plugins.apply("org.jetbrains.kotlin.android")
+
             with(project.extensions.getByType(KotlinAndroidProjectExtension::class.java)) {
                 jvmToolchain { it.languageVersion.set(JavaLanguageVersion.of(8)) }
                 compilerOptions {
-                    freeCompilerArgs.add("-Xjvm-default=all")
+                    if (project.plugins.hasPlugin("com.android.library")) {
+                        freeCompilerArgs.add("-Xreturn-value-checker=full")
+                    } else {
+                        freeCompilerArgs.add("-Xreturn-value-checker=check")
+                    }
+                    jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
                 }
+                KotlinConfig(this).f()
             }
         } else {
             project.logger.log(logLevel, brightBlue("kotlin-jvm"))
             project.plugins.apply("org.jetbrains.kotlin.jvm")
+
+            project.tasks.withType(KotlinCompile::class.java) { task ->
+                task.compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
+            }
+
             with(project.extensions.getByType(KotlinJvmProjectExtension::class.java)) {
                 jvmToolchain { it.languageVersion.set(JavaLanguageVersion.of(8)) }
                 compilerOptions {
-                    freeCompilerArgs.add("-Xjvm-default=all")
+                    jvmTarget.set(JvmTarget.JVM_1_8)
+                    if (project.plugins.hasPlugin("java-library")) {
+                        freeCompilerArgs.add("-Xreturn-value-checker=full")
+                    } else {
+                        freeCompilerArgs.add("-Xreturn-value-checker=check")
+                    }
+                    jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)
                 }
+                KotlinConfig(this).f()
             }
         }
     }

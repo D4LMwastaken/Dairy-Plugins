@@ -35,7 +35,7 @@ class AndroidLibraryPlugin @Inject constructor(
         if (androidComponentsExtension !is LibraryAndroidComponentsExtension) error("Library can only be applied to an Android Library")
 
         androidComponentsExtension.finalizeDsl {
-            it.apply {
+            val _ = it.apply {
                 compileSdk = 30
 
                 defaultConfig {
