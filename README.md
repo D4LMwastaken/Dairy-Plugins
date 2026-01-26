@@ -45,7 +45,7 @@ It is recommended to get this via applying the `TeamCode` plugin below.
 otherwise:
 ```kt
 dependencies {
-    implementation("com.qualcomm.ftcrobotcontroller:FtcRobotController:11.0.0")
+    implementation("com.qualcomm.ftcrobotcontroller:FtcRobotController:11.1.0")
 }
 ```
 
@@ -58,7 +58,7 @@ how to use it.
 
 ```kt
 dependencies {
-    implementation("dev.frozenmilk:EasyAutoLibraries:1.1.1")
+    implementation("dev.frozenmilk:EasyAutoLibraries:1.1.2")
 }
 ```
 
@@ -70,7 +70,7 @@ A plugin that makes it easy to set up FTC related libraries, uses
 
 ```kt
 plugins {
-    id("dev.frozenmilk.ftc-libraries") version "11.0.0-1.1.0"
+    id("dev.frozenmilk.ftc-libraries") version "11.1.0-1.1.1"
 }
 ```
 
@@ -95,10 +95,10 @@ ftc {
         // this adds RobotCore to implementation
         implementation(RobotCore)
         // we can also specify a version
-        implementation(FtcCommon("11.0.0"))
+        implementation(FtcCommon("11.1.0"))
 
         // the sdk block specifically has a shared version
-        version = "11.0.0"
+        version = "11.1.0"
         // once you change it,
         // all un-specified versions for sdk dependencies will have this version
         // note that changing it won't affect previous actions
@@ -106,7 +106,7 @@ ftc {
         // the sdk block also has a TeamCode function
         TeamCode()
         // or:
-        TeamCode("11.0.0")
+        TeamCode("11.1.0")
         // these functions are recommended for use in team code modules,
         // as they provide all the dependencies for you, rather than manually
         // specifying it
@@ -212,7 +212,7 @@ See the templates repository for examples.
 
 ```kt
 plugins {
-    id("dev.frozenmilk.teamcode") version "11.0.0-1.1.0"
+    id("dev.frozenmilk.teamcode") version "11.1.0-1.1.1"
 }
 ```
 
@@ -227,7 +227,7 @@ See the templates repository for examples.
 
 ```kt
 plugins {
-    id("dev.frozenmilk.android-library") version "11.0.0-1.1.0"
+    id("dev.frozenmilk.android-library") version "11.1.0-1.1.1"
 }
 ```
 
@@ -241,7 +241,7 @@ See the templates repository for examples.
 
 ```kt
 plugins {
-    id("dev.frozenmilk.jvm-library") version "11.0.0-1.1.0"
+    id("dev.frozenmilk.jvm-library") version "11.1.0-1.1.1"
 }
 ```
 
