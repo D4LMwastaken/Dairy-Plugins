@@ -194,6 +194,28 @@ ftc {
         // or fullpanels preset
         implementation(fullpanels)
     }
+
+    // the solvers block contains solverslib dependencies
+    solvers {
+        implementation(core)
+        implementation(pedroPathing)
+    }
+
+    // the psiLynx block contains psikit dependencies
+    psiLynx {
+        // psiLynx also contains a common version,
+        // as shown in examples above
+        implementation(core)
+        implementation(ftc)
+    }
+
+    // the fateWeaver block contains fateWeaver dependencies
+    fateWeaver {
+        // fateWeaver also contains a common version,
+        // as shown in examples above
+        implementation(core)
+        implementation(ftc)
+    }
 }
 ```
 
