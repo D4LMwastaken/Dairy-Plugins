@@ -66,7 +66,7 @@ class Dairy(ftc: FTC) : EasyAutoScope<Dairy>(ftc) {
         EasyAutoDependency(
             group = "com.bylazar.sloth",
             artifact = name,
-            defaultVersion = { "$slothVersion+$version" },
+            defaultVersion = { "0.2.4.1+$version" },
         ) {
             fun incompatibleWithFtControl(dependency: EasyAutoDependency) {
                 incompatibleWith(
