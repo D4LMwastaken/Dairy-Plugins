@@ -1,0 +1,28 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          submodules: 'recursive'
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: 25
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+      - name: Publish with Gradle
+        run: ./gradlew publishFTCLibrariesDairy
+        env:
+          DAIRY_TOKEN: ${{ secrets.DAIRY_TOKEN }}
+          DAIRY_PASSWORD: ${{ secrets.DAIRY_PASSWORD }}
