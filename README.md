@@ -177,7 +177,7 @@ ftc {
         implementation(tuning)
         
         // ivy
-        implementation(pedro)
+        implementation(ivy)
     }
 
     // the ftcontrol block contains panels dependencies
