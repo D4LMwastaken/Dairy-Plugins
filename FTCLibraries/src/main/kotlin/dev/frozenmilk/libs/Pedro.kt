@@ -17,13 +17,18 @@ class Pedro(ftc: FTC) : EasyAutoScope<Pedro>(ftc) {
     val revhub by library("3.0.2")
     val tuning by library("1.0.1")
 
-    private fun extension(version: String, artifact: String) = dependency {
-        EasyAutoDependency(
-            group = "com.pedropathing.ivy",
-            artifact = artifact,
-            version = version,
-        )
+    class Ivy(ftc: FTC) : EasyAutoScope<Ivy>(ftc) {
+        private fun module(version: String) = dependency { name ->
+            EasyAutoDependency(
+                group = "com.pedropathing.ivy",
+                artifact = name,
+                version = version,
+            )
+        }
+
+        val core by module("1.1.1")
+        val pedro by module("1.1.1")
     }
 
-    val ivy by extension("1.1.1", "pedro")
+    val ivy = Ivy(ftc)
 }
